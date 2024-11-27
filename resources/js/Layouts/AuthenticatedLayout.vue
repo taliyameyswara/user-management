@@ -13,36 +13,23 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
-            <nav class="border-b border-gray-100 bg-white">
+            <nav class="border-b bg-white">
                 <!-- Primary Navigation Menu -->
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="flex h-16 justify-between">
-                        <div class="flex">
-                            <!-- Logo -->
-                            <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
-                                    <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800"
-                                    />
-                                </Link>
-                            </div>
-
-                            <!-- Navigation Links -->
-                            <div
-                                class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
+                        <!-- Navigation Links -->
+                        <div class="hidden space-x-8 sm:flex">
+                            <NavLink
+                                :href="route('dashboard')"
+                                class="text-purple-600 text-xl font-semibold"
                             >
-                                <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
-                                    Dashboard
-                                </NavLink>
-                            </div>
+                                Dashboard
+                            </NavLink>
                         </div>
 
                         <div class="hidden sm:ms-6 sm:flex sm:items-center">
                             <!-- Settings Dropdown -->
-                            <div class="relative ms-3">
+                            <div class="relative z-10 ms-3">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
@@ -69,6 +56,11 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
+                                        <!-- <DropdownLink
+                                            :href="route('profile.edit')"
+                                        >
+                                            Profile
+                                        </DropdownLink> -->
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"
@@ -153,9 +145,6 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <!-- <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
-                            </ResponsiveNavLink> -->
                             <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
@@ -169,7 +158,7 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
+            <header class="bg-gradient-to-r" v-if="$slots.header">
                 <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>
@@ -182,3 +171,45 @@ const showingNavigationDropdown = ref(false);
         </div>
     </div>
 </template>
+
+<style scoped>
+/* Add unified color scheme for inputs */
+.bg-lavender-100 {
+    background-color: #e9d5ff;
+}
+
+.border-lavender-300 {
+    border-color: #d8b3f5;
+}
+
+.focus\:ring-lavender-500 {
+    --tw-ring-color: #9b4de6;
+}
+
+/* Smooth transitions */
+input,
+button {
+    transition: all 0.3s ease;
+}
+
+input:focus,
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Gradient background for the button */
+.bg-gradient-to-r {
+    background-image: linear-gradient(to right, #ec4899, #7c3aed);
+}
+
+.bg-gradient-to-l {
+    background-image: linear-gradient(to left, #ec4899, #7c3aed);
+}
+
+/* Disabled button style */
+button:disabled {
+    background-color: #d1d5db;
+    cursor: not-allowed;
+}
+</style>
